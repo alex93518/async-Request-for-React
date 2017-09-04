@@ -7,29 +7,38 @@ function getPostAPI(postId){
     return axios.get(`https://jsonplaceholder.typicode.com/posts/${postId}`)
 };
 
+const GET_POST = 'GET_POST';
 const GET_POST_PENDING = 'GET_POST_PENDING';
 const GET_POST_SUCCESS = 'GET_POST_SUCCESS';
 const GET_POST_FAILURE = 'GET_POST_FAILURE';
 
-export const getPost = (postId) => dispatch => {
-    //notice request
-    dispatch({type: GET_POST_PENDING});
+/* for redux-thunk  */
 
-    //start request
-    return getPostAPI(postId).then(
-        (response) => {
-            dispatch({
-                type: GET_POST_SUCCESS,
-                payload: response
-            })
-        }
-    ).catch(error=>{
-        dispatch({
-            type:GET_POST_FAILURE,
-            payload:error
-        })
-    })
-}
+// export const getPost = (postId) => dispatch => {
+//     //notice request
+//     dispatch({type: GET_POST_PENDING});
+
+//     //start request
+//     return getPostAPI(postId).then(
+//         (response) => {
+//             dispatch({
+//                 type: GET_POST_SUCCESS,
+//                 payload: response
+//             })
+//         }
+//     ).catch(error=>{
+//         dispatch({
+//             type:GET_POST_FAILURE,
+//             payload:error
+//         })
+//     })
+// }
+
+
+export const getPost = (postId) => ({
+    type: GET_POST,
+    payload: getPostAPI(postId)
+})
 
 
 const initialState = {
